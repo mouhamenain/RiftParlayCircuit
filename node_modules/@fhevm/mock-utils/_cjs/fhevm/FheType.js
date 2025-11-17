@@ -1,0 +1,863 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.ALL_FHE_TYPES = exports.FheType = void 0;
+exports.checkFheType = checkFheType;
+exports.getFheTypeByteLength = getFheTypeByteLength;
+exports.getFheTypeBitLength = getFheTypeBitLength;
+exports.getFheTypeInfo = getFheTypeInfo;
+exports.getFheTypeName = getFheTypeName;
+const error_js_1 = require("../utils/error.js");
+const math_js_1 = require("../utils/math.js");
+var FheType;
+(function (FheType) {
+    FheType[FheType["Bool"] = 0] = "Bool";
+    FheType[FheType["Uint4"] = 1] = "Uint4";
+    FheType[FheType["Uint8"] = 2] = "Uint8";
+    FheType[FheType["Uint16"] = 3] = "Uint16";
+    FheType[FheType["Uint32"] = 4] = "Uint32";
+    FheType[FheType["Uint64"] = 5] = "Uint64";
+    FheType[FheType["Uint128"] = 6] = "Uint128";
+    FheType[FheType["Uint160"] = 7] = "Uint160";
+    FheType[FheType["Uint256"] = 8] = "Uint256";
+    FheType[FheType["Uint512"] = 9] = "Uint512";
+    FheType[FheType["Uint1024"] = 10] = "Uint1024";
+    FheType[FheType["Uint2048"] = 11] = "Uint2048";
+    FheType[FheType["Uint2"] = 12] = "Uint2";
+    FheType[FheType["Uint6"] = 13] = "Uint6";
+    FheType[FheType["Uint10"] = 14] = "Uint10";
+    FheType[FheType["Uint12"] = 15] = "Uint12";
+    FheType[FheType["Uint14"] = 16] = "Uint14";
+    FheType[FheType["Int2"] = 17] = "Int2";
+    FheType[FheType["Int4"] = 18] = "Int4";
+    FheType[FheType["Int6"] = 19] = "Int6";
+    FheType[FheType["Int8"] = 20] = "Int8";
+    FheType[FheType["Int10"] = 21] = "Int10";
+    FheType[FheType["Int12"] = 22] = "Int12";
+    FheType[FheType["Int14"] = 23] = "Int14";
+    FheType[FheType["Int16"] = 24] = "Int16";
+    FheType[FheType["Int32"] = 25] = "Int32";
+    FheType[FheType["Int64"] = 26] = "Int64";
+    FheType[FheType["Int128"] = 27] = "Int128";
+    FheType[FheType["Int160"] = 28] = "Int160";
+    FheType[FheType["Int256"] = 29] = "Int256";
+    FheType[FheType["AsciiString"] = 30] = "AsciiString";
+    FheType[FheType["Int512"] = 31] = "Int512";
+    FheType[FheType["Int1024"] = 32] = "Int1024";
+    FheType[FheType["Int2048"] = 33] = "Int2048";
+    FheType[FheType["Uint24"] = 34] = "Uint24";
+    FheType[FheType["Uint40"] = 35] = "Uint40";
+    FheType[FheType["Uint48"] = 36] = "Uint48";
+    FheType[FheType["Uint56"] = 37] = "Uint56";
+    FheType[FheType["Uint72"] = 38] = "Uint72";
+    FheType[FheType["Uint80"] = 39] = "Uint80";
+    FheType[FheType["Uint88"] = 40] = "Uint88";
+    FheType[FheType["Uint96"] = 41] = "Uint96";
+    FheType[FheType["Uint104"] = 42] = "Uint104";
+    FheType[FheType["Uint112"] = 43] = "Uint112";
+    FheType[FheType["Uint120"] = 44] = "Uint120";
+    FheType[FheType["Uint136"] = 45] = "Uint136";
+    FheType[FheType["Uint144"] = 46] = "Uint144";
+    FheType[FheType["Uint152"] = 47] = "Uint152";
+    FheType[FheType["Uint168"] = 48] = "Uint168";
+    FheType[FheType["Uint176"] = 49] = "Uint176";
+    FheType[FheType["Uint184"] = 50] = "Uint184";
+    FheType[FheType["Uint192"] = 51] = "Uint192";
+    FheType[FheType["Uint200"] = 52] = "Uint200";
+    FheType[FheType["Uint208"] = 53] = "Uint208";
+    FheType[FheType["Uint216"] = 54] = "Uint216";
+    FheType[FheType["Uint224"] = 55] = "Uint224";
+    FheType[FheType["Uint232"] = 56] = "Uint232";
+    FheType[FheType["Uint240"] = 57] = "Uint240";
+    FheType[FheType["Uint248"] = 58] = "Uint248";
+    FheType[FheType["Int24"] = 59] = "Int24";
+    FheType[FheType["Int40"] = 60] = "Int40";
+    FheType[FheType["Int48"] = 61] = "Int48";
+    FheType[FheType["Int56"] = 62] = "Int56";
+    FheType[FheType["Int72"] = 63] = "Int72";
+    FheType[FheType["Int80"] = 64] = "Int80";
+    FheType[FheType["Int88"] = 65] = "Int88";
+    FheType[FheType["Int96"] = 66] = "Int96";
+    FheType[FheType["Int104"] = 67] = "Int104";
+    FheType[FheType["Int112"] = 68] = "Int112";
+    FheType[FheType["Int120"] = 69] = "Int120";
+    FheType[FheType["Int136"] = 70] = "Int136";
+    FheType[FheType["Int144"] = 71] = "Int144";
+    FheType[FheType["Int152"] = 72] = "Int152";
+    FheType[FheType["Int168"] = 73] = "Int168";
+    FheType[FheType["Int176"] = 74] = "Int176";
+    FheType[FheType["Int184"] = 75] = "Int184";
+    FheType[FheType["Int192"] = 76] = "Int192";
+    FheType[FheType["Int200"] = 77] = "Int200";
+    FheType[FheType["Int208"] = 78] = "Int208";
+    FheType[FheType["Int216"] = 79] = "Int216";
+    FheType[FheType["Int224"] = 80] = "Int224";
+    FheType[FheType["Int232"] = 81] = "Int232";
+    FheType[FheType["Int240"] = 82] = "Int240";
+    FheType[FheType["Int248"] = 83] = "Int248";
+})(FheType || (exports.FheType = FheType = {}));
+exports.ALL_FHE_TYPES = [
+    {
+        type: "Bool",
+        value: 0,
+        supportedOperators: ["and", "or", "xor", "eq", "ne", "not", "select", "rand"],
+        bitLength: 2,
+        clearMatchingType: "bool",
+    },
+    {
+        type: "Uint4",
+        value: 1,
+        supportedOperators: [],
+        bitLength: 4,
+        clearMatchingType: "uint8",
+    },
+    {
+        type: "Uint8",
+        value: 2,
+        supportedOperators: [
+            "add",
+            "sub",
+            "mul",
+            "div",
+            "rem",
+            "and",
+            "or",
+            "xor",
+            "shl",
+            "shr",
+            "rotl",
+            "rotr",
+            "eq",
+            "ne",
+            "ge",
+            "gt",
+            "le",
+            "lt",
+            "min",
+            "max",
+            "neg",
+            "not",
+            "select",
+            "rand",
+            "randBounded",
+        ],
+        bitLength: 8,
+        clearMatchingType: "uint8",
+    },
+    {
+        type: "Uint16",
+        value: 3,
+        supportedOperators: [
+            "add",
+            "sub",
+            "mul",
+            "div",
+            "rem",
+            "and",
+            "or",
+            "xor",
+            "shl",
+            "shr",
+            "rotl",
+            "rotr",
+            "eq",
+            "ne",
+            "ge",
+            "gt",
+            "le",
+            "lt",
+            "min",
+            "max",
+            "neg",
+            "not",
+            "select",
+            "rand",
+            "randBounded",
+        ],
+        bitLength: 16,
+        clearMatchingType: "uint16",
+    },
+    {
+        type: "Uint32",
+        value: 4,
+        supportedOperators: [
+            "add",
+            "sub",
+            "mul",
+            "div",
+            "rem",
+            "and",
+            "or",
+            "xor",
+            "shl",
+            "shr",
+            "rotl",
+            "rotr",
+            "eq",
+            "ne",
+            "ge",
+            "gt",
+            "le",
+            "lt",
+            "min",
+            "max",
+            "neg",
+            "not",
+            "select",
+            "rand",
+            "randBounded",
+        ],
+        bitLength: 32,
+        clearMatchingType: "uint32",
+    },
+    {
+        type: "Uint64",
+        value: 5,
+        supportedOperators: [
+            "add",
+            "sub",
+            "mul",
+            "div",
+            "rem",
+            "and",
+            "or",
+            "xor",
+            "shl",
+            "shr",
+            "rotl",
+            "rotr",
+            "eq",
+            "ne",
+            "ge",
+            "gt",
+            "le",
+            "lt",
+            "min",
+            "max",
+            "neg",
+            "not",
+            "select",
+            "rand",
+            "randBounded",
+        ],
+        bitLength: 64,
+        clearMatchingType: "uint64",
+    },
+    {
+        type: "Uint128",
+        value: 6,
+        supportedOperators: [
+            "add",
+            "sub",
+            "mul",
+            "div",
+            "rem",
+            "and",
+            "or",
+            "xor",
+            "shl",
+            "shr",
+            "rotl",
+            "rotr",
+            "eq",
+            "ne",
+            "ge",
+            "gt",
+            "le",
+            "lt",
+            "min",
+            "max",
+            "neg",
+            "not",
+            "select",
+            "rand",
+            "randBounded",
+        ],
+        bitLength: 128,
+        clearMatchingType: "uint128",
+    },
+    {
+        type: "Uint160",
+        value: 7,
+        supportedOperators: [],
+        bitLength: 160,
+        clearMatchingType: "uint160",
+    },
+    {
+        type: "Uint256",
+        value: 8,
+        supportedOperators: [
+            "and",
+            "or",
+            "xor",
+            "shl",
+            "shr",
+            "rotl",
+            "rotr",
+            "eq",
+            "ne",
+            "neg",
+            "not",
+            "select",
+            "rand",
+            "randBounded",
+        ],
+        bitLength: 256,
+        clearMatchingType: "uint256",
+    },
+    {
+        type: "Uint512",
+        value: 9,
+        supportedOperators: [],
+        bitLength: 512,
+        clearMatchingType: "bytes memory",
+    },
+    {
+        type: "Uint1024",
+        value: 10,
+        supportedOperators: [],
+        bitLength: 1024,
+        clearMatchingType: "bytes memory",
+    },
+    {
+        type: "Uint2048",
+        value: 11,
+        supportedOperators: [],
+        bitLength: 2048,
+        clearMatchingType: "bytes memory",
+    },
+    {
+        type: "Uint2",
+        value: 12,
+        supportedOperators: [],
+        bitLength: 2,
+        clearMatchingType: "uint8",
+    },
+    {
+        type: "Uint6",
+        value: 13,
+        supportedOperators: [],
+        bitLength: 6,
+        clearMatchingType: "uint8",
+    },
+    {
+        type: "Uint10",
+        value: 14,
+        supportedOperators: [],
+        bitLength: 10,
+        clearMatchingType: "uint16",
+    },
+    {
+        type: "Uint12",
+        value: 15,
+        supportedOperators: [],
+        bitLength: 12,
+        clearMatchingType: "uint16",
+    },
+    {
+        type: "Uint14",
+        value: 16,
+        supportedOperators: [],
+        bitLength: 14,
+        clearMatchingType: "uint16",
+    },
+    {
+        type: "Int2",
+        value: 17,
+        supportedOperators: [],
+        bitLength: 2,
+        clearMatchingType: "int8",
+    },
+    {
+        type: "Int4",
+        value: 18,
+        supportedOperators: [],
+        bitLength: 4,
+        clearMatchingType: "int8",
+    },
+    {
+        type: "Int6",
+        value: 19,
+        supportedOperators: [],
+        bitLength: 6,
+        clearMatchingType: "int8",
+    },
+    {
+        type: "Int8",
+        value: 20,
+        supportedOperators: [],
+        bitLength: 8,
+        clearMatchingType: "int8",
+    },
+    {
+        type: "Int10",
+        value: 21,
+        supportedOperators: [],
+        bitLength: 10,
+        clearMatchingType: "int16",
+    },
+    {
+        type: "Int12",
+        value: 22,
+        supportedOperators: [],
+        bitLength: 12,
+        clearMatchingType: "int16",
+    },
+    {
+        type: "Int14",
+        value: 23,
+        supportedOperators: [],
+        bitLength: 14,
+        clearMatchingType: "int16",
+    },
+    {
+        type: "Int16",
+        value: 24,
+        supportedOperators: [],
+        bitLength: 16,
+        clearMatchingType: "int16",
+    },
+    {
+        type: "Int32",
+        value: 25,
+        supportedOperators: [],
+        bitLength: 32,
+        clearMatchingType: "int32",
+    },
+    {
+        type: "Int64",
+        value: 26,
+        supportedOperators: [],
+        bitLength: 64,
+        clearMatchingType: "int64",
+    },
+    {
+        type: "Int128",
+        value: 27,
+        supportedOperators: [],
+        bitLength: 128,
+        clearMatchingType: "int128",
+    },
+    {
+        type: "Int160",
+        value: 28,
+        supportedOperators: [],
+        bitLength: 160,
+        clearMatchingType: "int160",
+    },
+    {
+        type: "Int256",
+        value: 29,
+        supportedOperators: [],
+        bitLength: 256,
+        clearMatchingType: "int256",
+    },
+    {
+        type: "AsciiString",
+        value: 30,
+        supportedOperators: [],
+        bitLength: 0,
+        clearMatchingType: "string memory",
+    },
+    {
+        type: "Int512",
+        value: 31,
+        supportedOperators: [],
+        bitLength: 512,
+        clearMatchingType: "bytes memory",
+    },
+    {
+        type: "Int1024",
+        value: 32,
+        supportedOperators: [],
+        bitLength: 1024,
+        clearMatchingType: "bytes memory",
+    },
+    {
+        type: "Int2048",
+        value: 33,
+        supportedOperators: [],
+        bitLength: 2048,
+        clearMatchingType: "bytes memory",
+    },
+    {
+        type: "Uint24",
+        value: 34,
+        supportedOperators: [],
+        bitLength: 24,
+        clearMatchingType: "uint24",
+    },
+    {
+        type: "Uint40",
+        value: 35,
+        supportedOperators: [],
+        bitLength: 40,
+        clearMatchingType: "uint40",
+    },
+    {
+        type: "Uint48",
+        value: 36,
+        supportedOperators: [],
+        bitLength: 48,
+        clearMatchingType: "uint48",
+    },
+    {
+        type: "Uint56",
+        value: 37,
+        supportedOperators: [],
+        bitLength: 56,
+        clearMatchingType: "uint56",
+    },
+    {
+        type: "Uint72",
+        value: 38,
+        supportedOperators: [],
+        bitLength: 72,
+        clearMatchingType: "uint72",
+    },
+    {
+        type: "Uint80",
+        value: 39,
+        supportedOperators: [],
+        bitLength: 80,
+        clearMatchingType: "uint80",
+    },
+    {
+        type: "Uint88",
+        value: 40,
+        supportedOperators: [],
+        bitLength: 88,
+        clearMatchingType: "uint88",
+    },
+    {
+        type: "Uint96",
+        value: 41,
+        supportedOperators: [],
+        bitLength: 96,
+        clearMatchingType: "uint96",
+    },
+    {
+        type: "Uint104",
+        value: 42,
+        supportedOperators: [],
+        bitLength: 104,
+        clearMatchingType: "uint104",
+    },
+    {
+        type: "Uint112",
+        value: 43,
+        supportedOperators: [],
+        bitLength: 112,
+        clearMatchingType: "uint112",
+    },
+    {
+        type: "Uint120",
+        value: 44,
+        supportedOperators: [],
+        bitLength: 120,
+        clearMatchingType: "uint120",
+    },
+    {
+        type: "Uint136",
+        value: 45,
+        supportedOperators: [],
+        bitLength: 136,
+        clearMatchingType: "uint136",
+    },
+    {
+        type: "Uint144",
+        value: 46,
+        supportedOperators: [],
+        bitLength: 144,
+        clearMatchingType: "uint144",
+    },
+    {
+        type: "Uint152",
+        value: 47,
+        supportedOperators: [],
+        bitLength: 152,
+        clearMatchingType: "uint152",
+    },
+    {
+        type: "Uint168",
+        value: 48,
+        supportedOperators: [],
+        bitLength: 168,
+        clearMatchingType: "uint168",
+    },
+    {
+        type: "Uint176",
+        value: 49,
+        supportedOperators: [],
+        bitLength: 176,
+        clearMatchingType: "uint176",
+    },
+    {
+        type: "Uint184",
+        value: 50,
+        supportedOperators: [],
+        bitLength: 184,
+        clearMatchingType: "uint184",
+    },
+    {
+        type: "Uint192",
+        value: 51,
+        supportedOperators: [],
+        bitLength: 192,
+        clearMatchingType: "uint192",
+    },
+    {
+        type: "Uint200",
+        value: 52,
+        supportedOperators: [],
+        bitLength: 200,
+        clearMatchingType: "uint200",
+    },
+    {
+        type: "Uint208",
+        value: 53,
+        supportedOperators: [],
+        bitLength: 208,
+        clearMatchingType: "uint208",
+    },
+    {
+        type: "Uint216",
+        value: 54,
+        supportedOperators: [],
+        bitLength: 216,
+        clearMatchingType: "uint216",
+    },
+    {
+        type: "Uint224",
+        value: 55,
+        supportedOperators: [],
+        bitLength: 224,
+        clearMatchingType: "uint224",
+    },
+    {
+        type: "Uint232",
+        value: 56,
+        supportedOperators: [],
+        bitLength: 232,
+        clearMatchingType: "uint232",
+    },
+    {
+        type: "Uint240",
+        value: 57,
+        supportedOperators: [],
+        bitLength: 240,
+        clearMatchingType: "uint240",
+    },
+    {
+        type: "Uint248",
+        value: 58,
+        supportedOperators: [],
+        bitLength: 248,
+        clearMatchingType: "uint248",
+    },
+    {
+        type: "Int24",
+        value: 59,
+        supportedOperators: [],
+        bitLength: 24,
+        clearMatchingType: "int24",
+    },
+    {
+        type: "Int40",
+        value: 60,
+        supportedOperators: [],
+        bitLength: 40,
+        clearMatchingType: "int40",
+    },
+    {
+        type: "Int48",
+        value: 61,
+        supportedOperators: [],
+        bitLength: 48,
+        clearMatchingType: "int48",
+    },
+    {
+        type: "Int56",
+        value: 62,
+        supportedOperators: [],
+        bitLength: 56,
+        clearMatchingType: "int56",
+    },
+    {
+        type: "Int72",
+        value: 63,
+        supportedOperators: [],
+        bitLength: 72,
+        clearMatchingType: "int72",
+    },
+    {
+        type: "Int80",
+        value: 64,
+        supportedOperators: [],
+        bitLength: 80,
+        clearMatchingType: "int80",
+    },
+    {
+        type: "Int88",
+        value: 65,
+        supportedOperators: [],
+        bitLength: 88,
+        clearMatchingType: "int88",
+    },
+    {
+        type: "Int96",
+        value: 66,
+        supportedOperators: [],
+        bitLength: 96,
+        clearMatchingType: "int96",
+    },
+    {
+        type: "Int104",
+        value: 67,
+        supportedOperators: [],
+        bitLength: 104,
+        clearMatchingType: "int104",
+    },
+    {
+        type: "Int112",
+        value: 68,
+        supportedOperators: [],
+        bitLength: 112,
+        clearMatchingType: "int112",
+    },
+    {
+        type: "Int120",
+        value: 69,
+        supportedOperators: [],
+        bitLength: 120,
+        clearMatchingType: "int120",
+    },
+    {
+        type: "Int136",
+        value: 70,
+        supportedOperators: [],
+        bitLength: 136,
+        clearMatchingType: "int136",
+    },
+    {
+        type: "Int144",
+        value: 71,
+        supportedOperators: [],
+        bitLength: 144,
+        clearMatchingType: "int144",
+    },
+    {
+        type: "Int152",
+        value: 72,
+        supportedOperators: [],
+        bitLength: 152,
+        clearMatchingType: "int152",
+    },
+    {
+        type: "Int168",
+        value: 73,
+        supportedOperators: [],
+        bitLength: 168,
+        clearMatchingType: "int168",
+    },
+    {
+        type: "Int176",
+        value: 74,
+        supportedOperators: [],
+        bitLength: 176,
+        clearMatchingType: "int176",
+    },
+    {
+        type: "Int184",
+        value: 75,
+        supportedOperators: [],
+        bitLength: 184,
+        clearMatchingType: "int184",
+    },
+    {
+        type: "Int192",
+        value: 76,
+        supportedOperators: [],
+        bitLength: 192,
+        clearMatchingType: "int192",
+    },
+    {
+        type: "Int200",
+        value: 77,
+        supportedOperators: [],
+        bitLength: 200,
+        clearMatchingType: "int200",
+    },
+    {
+        type: "Int208",
+        value: 78,
+        supportedOperators: [],
+        bitLength: 208,
+        clearMatchingType: "int208",
+    },
+    {
+        type: "Int216",
+        value: 79,
+        supportedOperators: [],
+        bitLength: 216,
+        clearMatchingType: "int216",
+    },
+    {
+        type: "Int224",
+        value: 80,
+        supportedOperators: [],
+        bitLength: 224,
+        clearMatchingType: "int224",
+    },
+    {
+        type: "Int232",
+        value: 81,
+        supportedOperators: [],
+        bitLength: 232,
+        clearMatchingType: "int232",
+    },
+    {
+        type: "Int240",
+        value: 82,
+        supportedOperators: [],
+        bitLength: 240,
+        clearMatchingType: "int240",
+    },
+    {
+        type: "Int248",
+        value: 83,
+        supportedOperators: [],
+        bitLength: 248,
+        clearMatchingType: "int248",
+    },
+];
+function checkFheType(fheType) {
+    if (!(0, math_js_1.isUInt)(fheType)) {
+        throw new error_js_1.FhevmError(`Invalid FheType ${fheType}`);
+    }
+    const theFheType = fheType;
+    if (exports.ALL_FHE_TYPES.length - 1 !== exports.ALL_FHE_TYPES[exports.ALL_FHE_TYPES.length - 1].value) {
+        throw new error_js_1.FhevmError(`Internal error: Invalid ALL_FHE_TYPES array.`);
+    }
+    if (theFheType >= exports.ALL_FHE_TYPES.length) {
+        throw new error_js_1.FhevmError(`Invalid FheType ${fheType}`);
+    }
+}
+function getFheTypeByteLength(fheType) {
+    const fheBitLen = getFheTypeBitLength(fheType);
+    return Math.ceil(fheBitLen / 8);
+}
+function getFheTypeBitLength(fheType) {
+    return getFheTypeInfo(fheType).bitLength;
+}
+function getFheTypeInfo(type) {
+    const typeInfo = exports.ALL_FHE_TYPES[type];
+    if (typeInfo.value !== Number(type)) {
+        throw new error_js_1.FhevmError(`Internal error: Invalid FheType ${type}`);
+    }
+    return typeInfo;
+}
+function getFheTypeName(fheType) {
+    checkFheType(fheType);
+    return getFheTypeInfo(fheType).type;
+}
+//# sourceMappingURL=FheType.js.map

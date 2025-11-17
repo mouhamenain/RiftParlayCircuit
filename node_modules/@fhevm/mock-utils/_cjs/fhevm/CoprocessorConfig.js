@@ -1,0 +1,16 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.getCoprocessorConfig = getCoprocessorConfig;
+const storage_js_1 = require("../ethers/storage.js");
+const error_js_1 = require("../utils/error.js");
+async function getCoprocessorConfig(provider, contractAddress) {
+    const coprocessorConfigStorageLocation = (0, storage_js_1.computeStorageLocation)("confidential.storage.config");
+    (0, error_js_1.assertFhevm)(coprocessorConfigStorageLocation === "0x9e7b61f58c47dc699ac88507c4f5bb9f121c03808c5676a8078fe583e4649700");
+    const addresses = await (0, storage_js_1.getAddressesFromStorage)(provider, contractAddress, coprocessorConfigStorageLocation, 3);
+    return {
+        ACLAddress: addresses[0],
+        CoprocessorAddress: addresses[1],
+        KMSVerifierAddress: addresses[2],
+    };
+}
+//# sourceMappingURL=CoprocessorConfig.js.map

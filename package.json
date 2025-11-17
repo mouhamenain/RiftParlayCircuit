@@ -1,0 +1,22 @@
+{
+  "name": "rift-parlay-circuit",
+  "version": "1.0.0",
+  "description": "Privacy-preserving parlay betting circuit with Fully Homomorphic Encryption (FHE) using Zama fhEVM",
+  "scripts": {
+    "compile": "hardhat compile",
+    "deploy": "hardhat run scripts/deploy.cjs --network sepolia",
+    "create-circuits": "hardhat run scripts/create-test-circuits.cjs --network sepolia",
+    "test": "hardhat test",
+    "clean": "hardhat clean"
+  },
+  "devDependencies": {
+    "@fhevm/hardhat-plugin": "^0.3.0-1",
+    "@nomicfoundation/hardhat-toolbox": "^5.0.0",
+    "hardhat": "^2.26.3"
+  },
+  "dependencies": {
+    "@fhevm/solidity": "^0.9.1",
+    "dotenv": "^16.4.5",
+    "ethers": "^6.13.4"
+  }
+}

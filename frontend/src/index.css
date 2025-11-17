@@ -1,0 +1,216 @@
+@import "@fontsource/inter/400.css";
+@import "@fontsource/inter/500.css";
+@import "@fontsource/inter/600.css";
+@import "@fontsource/inter/700.css";
+@import "@fontsource/jetbrains-mono/400.css";
+@import "@fontsource/jetbrains-mono/500.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 222 47% 4%;
+    --foreground: 210 40% 98%;
+
+    --card: 222 47% 7%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222 47% 7%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 263 70% 66%;
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 217 33% 12%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 217 33% 15%;
+    --muted-foreground: 215 20% 55%;
+
+    --accent: 217 33% 17%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217 33% 17%;
+    --input: 217 33% 17%;
+    --ring: 263 70% 66%;
+
+    --radius: 0.75rem;
+
+    /* Pathline Colors */
+    --nova: 263 70% 66%;
+    --ember: 25 95% 53%;
+    --tidal: 217 91% 60%;
+    --quake: 160 84% 39%;
+
+    /* Status Colors */
+    --status-open: 142 76% 36%;
+    --status-locked: 48 96% 53%;
+    --status-settled: 239 84% 67%;
+    --status-cancelled: 0 84% 60%;
+
+    /* Gradients */
+    --gradient-nova: linear-gradient(135deg, hsl(263, 70%, 66%), hsl(280, 80%, 50%));
+    --gradient-ember: linear-gradient(135deg, hsl(25, 95%, 53%), hsl(15, 100%, 45%));
+    --gradient-tidal: linear-gradient(135deg, hsl(217, 91%, 60%), hsl(200, 100%, 50%));
+    --gradient-quake: linear-gradient(135deg, hsl(160, 84%, 39%), hsl(140, 90%, 35%));
+
+    /* Shadows */
+    --glow-nova: 0 0 40px hsl(263 70% 66% / 0.3);
+    --glow-ember: 0 0 40px hsl(25 95% 53% / 0.3);
+    --glow-tidal: 0 0 40px hsl(217 91% 60% / 0.3);
+    --glow-quake: 0 0 40px hsl(160 84% 39% / 0.3);
+
+    --sidebar-background: 222 47% 4%;
+    --sidebar-foreground: 210 40% 98%;
+    --sidebar-primary: 263 70% 66%;
+    --sidebar-primary-foreground: 210 40% 98%;
+    --sidebar-accent: 217 33% 17%;
+    --sidebar-accent-foreground: 210 40% 98%;
+    --sidebar-border: 217 33% 17%;
+    --sidebar-ring: 263 70% 66%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-family: 'Inter', sans-serif;
+  }
+
+  .font-mono {
+    font-family: 'JetBrains Mono', monospace;
+  }
+}
+
+@layer utilities {
+  /* Glass Effect */
+  .glass {
+    @apply bg-card/60 backdrop-blur-xl border border-border/50;
+  }
+
+  .glass-hover {
+    @apply transition-all duration-300 hover:bg-card/80 hover:border-border;
+  }
+
+  /* Gradient Backgrounds */
+  .bg-gradient-radial {
+    background: radial-gradient(ellipse at top, hsl(var(--primary) / 0.15) 0%, transparent 50%);
+  }
+
+  .bg-grid {
+    background-image: 
+      linear-gradient(to right, hsl(var(--border) / 0.3) 1px, transparent 1px),
+      linear-gradient(to bottom, hsl(var(--border) / 0.3) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+
+  /* Pathline Gradients */
+  .bg-nova {
+    background: var(--gradient-nova);
+  }
+  .bg-ember {
+    background: var(--gradient-ember);
+  }
+  .bg-tidal {
+    background: var(--gradient-tidal);
+  }
+  .bg-quake {
+    background: var(--gradient-quake);
+  }
+
+  /* Text Colors */
+  .text-nova {
+    color: hsl(var(--nova));
+  }
+  .text-ember {
+    color: hsl(var(--ember));
+  }
+  .text-tidal {
+    color: hsl(var(--tidal));
+  }
+  .text-quake {
+    color: hsl(var(--quake));
+  }
+
+  /* Border Colors */
+  .border-nova {
+    border-color: hsl(var(--nova));
+  }
+  .border-ember {
+    border-color: hsl(var(--ember));
+  }
+  .border-tidal {
+    border-color: hsl(var(--tidal));
+  }
+  .border-quake {
+    border-color: hsl(var(--quake));
+  }
+
+  /* Status Colors */
+  .status-open {
+    @apply bg-[hsl(var(--status-open))] text-foreground;
+  }
+  .status-locked {
+    @apply bg-[hsl(var(--status-locked))] text-background;
+  }
+  .status-settled {
+    @apply bg-[hsl(var(--status-settled))] text-foreground;
+  }
+  .status-cancelled {
+    @apply bg-[hsl(var(--status-cancelled))] text-foreground;
+  }
+
+  /* Glow Effects */
+  .glow-nova {
+    box-shadow: var(--glow-nova);
+  }
+  .glow-ember {
+    box-shadow: var(--glow-ember);
+  }
+  .glow-tidal {
+    box-shadow: var(--glow-tidal);
+  }
+  .glow-quake {
+    box-shadow: var(--glow-quake);
+  }
+
+  /* Animations */
+  .animate-glow {
+    animation: glow 2s ease-in-out infinite alternate;
+  }
+
+  @keyframes glow {
+    from {
+      filter: drop-shadow(0 0 5px currentColor);
+    }
+    to {
+      filter: drop-shadow(0 0 20px currentColor);
+    }
+  }
+
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-20px);
+    }
+  }
+
+  .animate-pulse-slow {
+    animation: pulse 3s ease-in-out infinite;
+  }
+}
