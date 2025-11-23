@@ -688,3 +688,4 @@ MIT License - see [LICENSE](LICENSE) file for details.
 **Built with 🔐 by the Rift Parlay Team**
 
 *"Privacy-preserving predictions for a transparent future"*
+
