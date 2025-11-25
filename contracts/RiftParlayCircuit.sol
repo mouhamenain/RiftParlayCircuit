@@ -235,3 +235,4 @@ contract RiftParlayCircuit is ZamaEthereumConfig {
         return FHE.toBytes32(entry.encryptedChoice);
     }
 }
+// final
